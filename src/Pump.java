@@ -23,6 +23,7 @@ public class Pump {
     }
 
     public String receiveCommand(double insulin) {
+        java.lang.System.out.println("Pump received a command from Controller");
         if (insulin < insulinAvailable) {
             this.insulin = insulin;
             return "ACK";
@@ -32,6 +33,7 @@ public class Pump {
     }
 
     public void injectInsulin(Blood blood) {
+        java.lang.System.out.println("Pump injected " + insulin + "ml of insulin");
         blood.amnmendBloodSugar(insulin);
     }
 

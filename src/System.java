@@ -9,14 +9,11 @@ public class System {
         Pump pump = new Pump();
         Sensor sensor = new Sensor();
 
+
         sensor.measureBloodData(blood);
         controller.receiveBloodData(sensor.sendBloodData());
         pump.receiveCommand(controller.sendInsulinInjection());
         pump.injectInsulin(blood);
-
-
-
-
-
+        sensor.measureBloodData(blood);
     }
 }

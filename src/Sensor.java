@@ -7,10 +7,11 @@ public class Sensor {
 
     public void measureBloodData(Blood blood) {
         this.bloodData = blood.getBloodSugar();
-        System.out.println("test");
+        java.lang.System.out.println("Sensor measured blood sugar level of " + bloodData);
     }
 
     public double sendBloodData() {
+        java.lang.System.out.println("Sensor sent data to Controller");
         return bloodData;
     }
 }

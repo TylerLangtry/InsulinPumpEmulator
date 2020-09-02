@@ -30,10 +30,13 @@ public class Controller {
     public String receiveBloodData(double bloodSugar) {
         bloodData.add(bloodSugar);
         analyseBloodSugar();
+        java.lang.System.out.println("Controller received data");
         return "ACK";
     }
 
     private double calculateInjection() {
+        java.lang.System.out.println("Controller calculated an insulin injection of " + bloodData.get(0) /2 + "ml");
+        java.lang.System.out.println("Controller sent insulin injection instructions to Pump");
         return bloodData.get(0) /2;
     }
 
