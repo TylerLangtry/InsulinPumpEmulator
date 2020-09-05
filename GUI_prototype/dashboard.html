@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width" , initial-scale=1>
+        <title>Insulin Sign In</title>
+
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.747.0.min.js"></script>
+
+        <script type="text/javascript">
+            AWS.config.update({
+              region: "ap-southeast-2",
+                      /*
+                    https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.JavaScript.html
+                    */
+              // The endpoint should point to the local or remote computer where DynamoDB (downloadable) is running.
+              endpoint: 'http://localhost:8000',
+              /*
+                accessKeyId and secretAccessKey defaults can be used while using the downloadable version of DynamoDB. 
+                For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+              */
+              accessKeyId: "AKIAS7NTCKCLXRK64GLU",
+              secretAccessKey: "nFMXWaFXNvFrOT082aAER48CTBvUijy0ciQQ4SGG"
+            });
+
+            var dynamodb = new AWS.DynamoDB(); 
+            var docClient = new AWS.DynamoDB.DocumentClient();
+
+            function getData() {
+                document.getElementById('textarea').innerHTML = "";
+                document.getElementById('textarea').innerHTML += "Getting for dosages";
+                var params = {
+                    TableName : 'Injection',
+                    Key: {
+                        HashKey: 'hashkey'
+                    }
+                    };
+
+
+
+                documentClient.get(params, function(err, data) {
+                    if (err) {
+                        document.getElementById('textarea').innerHTML += "Unable to query. Error: " + "\n" + JSON.stringify(err, undefined, 2);
+                    } else {
+                        data.Items.forEach(function(movie) {
+                            document.getElementById('textarea').innerHTML += "\n" + movie.time + ": " + movie.dosage;
+                        });
+                    
+                    }
+                });
+            }
+
+            function createMovies() {
+                var params = {
+                    TableName : "Movies",
+                    KeySchema: [
+                        { AttributeName: "year", KeyType: "HASH"},
+                        { AttributeName: "title", KeyType: "RANGE" }
+                    ],
+                    AttributeDefinitions: [
+                        { AttributeName: "year", AttributeType: "N" },
+                        { AttributeName: "title", AttributeType: "S" }
+                    ],
+                    ProvisionedThroughput: {
+                        ReadCapacityUnits: 5,
+                        WriteCapacityUnits: 5
+                    }
+                };
+
+                dynamodb.createTable(params, function(err, data) {
+                    if (err) {
+                        document.getElementById('textarea').innerHTML = "Unable to create table: " + "\n" + JSON.stringify(err, undefined, 2);
+                    } else {
+                        document.getElementById('textarea').innerHTML = "Created table: " + "\n" + JSON.stringify(data, undefined, 2);
+                    }
+                });
+            }
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <h1> Test Dashboard </h1>
+        <h2> Http Request & JavasScript & Dynamodb Query </h2>
+
+        <caption>Table Operations</caption>
+        <td><input id="qu\\Button" type="button" value="Retrieve Dosage Table" onclick="getData();" /></td>
+        <br>
+        <input id="createTableButton" type="button" value="Create Table" onclick="createMovies();" />
+        <br><br>
+
+        <textarea readonly id= "textarea" style="width:400px; height:800px"></textarea>
+
+
+    </body>
