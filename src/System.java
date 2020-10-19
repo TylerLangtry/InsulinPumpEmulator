@@ -13,18 +13,23 @@ public class System {
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
 
-        // Measure blood sugar every x seconds and send to controller
+        // Measure blood sugar every x seconds (10min) and send to controller
         executorService.scheduleAtFixedRate((Runnable) () -> {
 
             // Task processes go here
             java.lang.System.out.println("[" + new Date() + "] " + "Measure Blood Sugar");
             sensor.measureBloodData(blood);
-            controller.receiveBloodData(sensor.sendBloodData());
-            java.lang.System.out.println();
+            if (controller.receiveBloodData(sensor.sendBloodData()).equals("LOW)")) {
+                blood.eat();
+            }
+            else {
+                java.lang.System.out.println();
+            }
 
-        }, 0, 2, TimeUnit.SECONDS);  // execute every x seconds
 
-        // Calculate required insulin every x seconds and send to pump for injection
+        }, 1, 1, TimeUnit.SECONDS);  // execute every x seconds
+
+        // Calculate required insulin every x seconds (60min) and send to pump for injection
         executorService.scheduleAtFixedRate((Runnable) () -> {
 
             // Task processes go here
@@ -33,16 +38,16 @@ public class System {
             pump.injectInsulin(blood);
             java.lang.System.out.println();
 
-        }, 5, 5, TimeUnit.SECONDS);  // execute every x seconds
+        }, 6, 6, TimeUnit.SECONDS);  // execute every x seconds
 
-        // Send data to database every x seconds
+        // Send data to database every x seconds (30min)
         executorService.scheduleAtFixedRate((Runnable) () -> {
 
             // Task processes go here
             java.lang.System.out.println("[" + new Date() + "] " + "Send to DB");
             java.lang.System.out.println();
 
-        }, 0, 10, TimeUnit.SECONDS);  // execute every x seconds
+        }, 3, 3, TimeUnit.SECONDS);  // execute every x seconds
 
         //Code for shutting down executor service
 //**********************************************************************************************************************
