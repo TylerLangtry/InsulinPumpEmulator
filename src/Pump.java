@@ -33,8 +33,10 @@ public class Pump {
     }
 
     public void injectInsulin(Blood blood) {
-        java.lang.System.out.println("Pump injected " + insulin + "ml of insulin");
-        blood.amnmendBloodSugar(insulin);
+        if (insulin > 0) {
+            java.lang.System.out.println("Pump injected " + insulin + "ml of insulin");
+            blood.amendBloodSugar(insulin);
+        }
     }
 
 
