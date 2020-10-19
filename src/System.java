@@ -1,5 +1,7 @@
 import java.io.PrintWriter;
+import java.sql.*;
 import java.util.*;
+import java.util.Date;
 import java.util.concurrent.*;
 
 public class System {
@@ -10,6 +12,8 @@ public class System {
         FailFast failFast = new FailFast();
         Pump pump = new Pump();
         Sensor sensor = new Sensor();
+
+        Utilities.sendQuery("SELECT table_name FROM information_schema.tables WHERE table_schema ='insulinpumpdb'");
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
 
