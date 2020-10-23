@@ -9,15 +9,15 @@ public class Blood {
     private Utilities util = new Utilities();
 
     Blood() {
-        this.bloodSugar = 100;
-        this.insulin = 0;
+        this.bloodSugar = Config.STARTING_SUGAR;
+        this.insulin = Config.STARTING_INSULIN;
 
     }
 
     public double getBloodSugar() {
         count++;
-        if (count == 30) {
-            this.bloodSugar = bloodSugar + 150;
+        if (count == Config.EATING_CYCLE) {
+            this.bloodSugar = bloodSugar + Config.FOOD_SUGAR;
             this.count = 0;
         }
         if (insulin < 0.1) {
@@ -25,7 +25,7 @@ public class Blood {
         }
         if (insulin > 0) {
             this.insulin = insulin - reductionFactor;
-            this.bloodSugar = bloodSugar - (reductionFactor * 50);
+            this.bloodSugar = bloodSugar - (reductionFactor * Config.CORRECTION_FACTOR);
         }
         return util.round(bloodSugar + (random.nextInt(10)-5), 2);
     }
@@ -36,7 +36,7 @@ public class Blood {
     }
 
     public void eat() {
-        this.bloodSugar = bloodSugar + 150;
+        this.bloodSugar = bloodSugar + Config.FOOD_SUGAR;
         this.count = 0;
     }
 }
