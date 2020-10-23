@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1ac63eed-98d8-45e5-9a43-4daed8b08a30" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_22.xml" afterDir="false" />
+    <list default="true" id="1ac63eed-98d8-45e5-9a43-4daed8b08a30" name="Default" comment="Add db connection and sql query functionality !!!">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0eb3b793-934c-412d-9e73-844abb78eee6.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InsulinPump.iml" beforeDir="false" afterPath="$PROJECT_DIR$/InsulinPump.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Blood.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Blood.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FailFast.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pump.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pump.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/System.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/System.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utilities.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,9 +18,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Pull.Settings">
+    <option name="BRANCH" value="master" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -55,7 +59,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Application.System">
+  <component name="RunManager" selected="JavaScript Debug.sign_in.html">
     <configuration name="System" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="System" />
       <module name="InsulinPump" />
@@ -102,7 +106,6 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.System" />
         <item itemvalue="JavaScript Debug.sign_in.html" />
         <item itemvalue="Application.System" />
       </list>
@@ -125,7 +128,8 @@
       <workItem from="1603072406763" duration="8610000" />
       <workItem from="1603089492602" duration="1941000" />
       <workItem from="1603091541325" duration="176000" />
-      <workItem from="1603091757091" duration="15550000" />
+      <workItem from="1603091757091" duration="16418000" />
+      <workItem from="1603436030943" duration="5023000" />
     </task>
     <task id="LOCAL-00001" summary="Add basic functionality for prototyping">
       <created>1599055238699</created>
@@ -148,7 +152,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602140640730</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add db connection and sql query functionality !!!">
+      <created>1603109176337</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1603109176337</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,7 +181,8 @@
     <MESSAGE value="Add basic functionality for prototyping" />
     <MESSAGE value="Add prints for prototype" />
     <MESSAGE value="Add scheduled executor to emulate the periodic tasks of the device" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add scheduled executor to emulate the periodic tasks of the device" />
+    <MESSAGE value="Add db connection and sql query functionality !!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add db connection and sql query functionality !!!" />
   </component>
   <component name="WindowStateProjectService">
     <state x="349" y="366" key="#SQL_Dialects" timestamp="1603108333291">
@@ -185,33 +197,49 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="711" y="385" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1603107914778" />
+    <state x="690" y="271" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1603437020767">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="690" y="271" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1603437020767" />
+    <state x="507" y="93" key="CommitChangelistDialog2" timestamp="1603109173304">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="507" y="93" key="CommitChangelistDialog2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1603109173304" />
     <state x="778" y="465" key="DetectedRootsChooserDialog" timestamp="1603108163807">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="778" y="465" key="DetectedRootsChooserDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1603108163807" />
+    <state x="92" y="92" width="1736" height="866" key="DiffContextDialog" timestamp="1603439841710">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="92" y="92" width="1736" height="866" key="DiffContextDialog/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1603439841710" />
     <state x="800" y="230" key="FileChooserDialogImpl" timestamp="1603108197838">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="800" y="230" key="FileChooserDialogImpl/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1603108197838" />
-    <state width="1877" height="215" key="GridCell.Tab.0.bottom" timestamp="1603108652946">
+    <state width="1877" height="215" key="GridCell.Tab.0.bottom" timestamp="1603109966177">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="215" key="GridCell.Tab.0.bottom/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1603108652946" />
-    <state width="1877" height="215" key="GridCell.Tab.0.center" timestamp="1603108652946">
+    <state width="1877" height="215" key="GridCell.Tab.0.bottom/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1603109966177" />
+    <state width="1877" height="215" key="GridCell.Tab.0.center" timestamp="1603109966176">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="215" key="GridCell.Tab.0.center/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1603108652946" />
-    <state width="1877" height="215" key="GridCell.Tab.0.left" timestamp="1603108652946">
+    <state width="1877" height="215" key="GridCell.Tab.0.center/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1603109966176" />
+    <state width="1877" height="215" key="GridCell.Tab.0.left" timestamp="1603109966176">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="215" key="GridCell.Tab.0.left/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1603108652946" />
-    <state width="1877" height="215" key="GridCell.Tab.0.right" timestamp="1603108652946">
+    <state width="1877" height="215" key="GridCell.Tab.0.left/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1603109966176" />
+    <state width="1877" height="215" key="GridCell.Tab.0.right" timestamp="1603109966176">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="215" key="GridCell.Tab.0.right/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1603108652946" />
+    <state width="1877" height="215" key="GridCell.Tab.0.right/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1603109966176" />
     <state x="461" y="169" key="SettingsEditor" timestamp="1603108209551">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="461" y="169" key="SettingsEditor/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1603108209551" />
+    <state x="552" y="257" key="Vcs.Push.Dialog.v2" timestamp="1603109186985">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="552" y="257" key="Vcs.Push.Dialog.v2/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1603109186985" />
   </component>
 </project>
