@@ -8,8 +8,7 @@ public class System {
         Controller controller = new Controller();
         Pump pump = new Pump();
         Sensor sensor = new Sensor();
-
-        Utilities.sendQuery("SELECT table_name FROM information_schema.tables WHERE table_schema ='insulinpumpdb'");
+        Utilities utilities = new Utilities();
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
 
