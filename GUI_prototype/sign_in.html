@@ -8,6 +8,8 @@
         <title>Insulin Sign In</title>
 
         <link rel="stylesheet" href="style.css">
+        <script type="text/javascript" src="connection.js"></script>
+
     </head>
 
     <body>
@@ -15,7 +17,7 @@
 
         <h2> Sign in Page</h2>
 
-        <form action="action_page.php" method="post">
+        <form action="action_page.php" method="POST">
             <div class="container">
               <label for="uname"><b>Username</b></label>
               <input type="text" placeholder="Enter Username" name="uname" required>
@@ -23,7 +25,7 @@
               <label for="psw"><b>Password</b></label>
               <input type="password" placeholder="Enter Password" name="psw" required>
               <br>
-              <button type="submit">Login</button>
+              <button type="submit" onclick="alert('Hello')">Login</button>
               <label>
                 <input type="checkbox" checked="checked" name="remember"> Remember me
               </label>
@@ -33,7 +35,10 @@
               <button type="button" class="cancelbtn">Cancel</button>
               <span class="psw">Forgot <a href="#">password?</a></span>
             </div>
-          </form>
+        </form>
+
+        <h3 id="connect_status">Not Connected</h3>
+        <button id="clickMe" type="submit">Connect</button>
 
     </body>
 </html>
