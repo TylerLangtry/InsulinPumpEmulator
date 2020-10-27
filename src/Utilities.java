@@ -13,7 +13,7 @@ public class Utilities {
 
     // Connect to the database query
     private static Connection getRemoteConnection() {
-        String databaseURL = "jdbc:mysql://insulin-pump-db.ccywbop2kswa.ap-southeast-2.rds.amazonaws.com:3306/";
+        String databaseURL = "jdbc:mysql://insulin-pump-db.ccywbop2kswa.ap-southeast-2.rds.amazonaws.com:3306/insulinpumpdb";
         String user = "master";
         String password = "Master1234";
         Connection conn = null;
