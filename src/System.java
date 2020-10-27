@@ -1,6 +1,3 @@
-import java.io.PrintWriter;
-import java.sql.*;
-import java.util.*;
 import java.util.Date;
 import java.util.concurrent.*;
 
@@ -9,11 +6,9 @@ public class System {
     public static void main(String[] args) {
         Blood blood = new Blood();
         Controller controller = new Controller();
-        FailFast failFast = new FailFast();
         Pump pump = new Pump();
         Sensor sensor = new Sensor();
-
-        Utilities.sendQuery("SELECT table_name FROM information_schema.tables WHERE table_schema ='insulinpumpdb'");
+        Utilities utilities = new Utilities();
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
 
@@ -26,12 +21,8 @@ public class System {
             if (controller.receiveBloodData(sensor.sendBloodData()).equals("LOW)")) {
                 blood.eat();
             }
-            else {
-                java.lang.System.out.println();
-            }
 
-
-        }, 1, 1, TimeUnit.SECONDS);  // execute every x seconds
+        }, Config.MEASUREMENT_INTERVAL, Config.MEASUREMENT_INTERVAL, TimeUnit.SECONDS);  // execute every x seconds
 
         // Calculate required insulin every x seconds (60min) and send to pump for injection
         executorService.scheduleAtFixedRate((Runnable) () -> {
@@ -42,7 +33,7 @@ public class System {
             pump.injectInsulin(blood);
             java.lang.System.out.println();
 
-        }, 6, 6, TimeUnit.SECONDS);  // execute every x seconds
+        }, Config.INJECTION_INTERVAL, Config.INJECTION_INTERVAL, TimeUnit.SECONDS);  // execute every x seconds
 
         // Send data to database every x seconds (30min)
         executorService.scheduleAtFixedRate((Runnable) () -> {

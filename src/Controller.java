@@ -5,23 +5,15 @@ import java.util.List;
 public class Controller {
     private List<Double> bloodData;
     private double bloodSugarTrend;
-    private double maxInjection;
-    private double minInjection;
-    private double maxCummulativeDose;
+    private double cumulativeDosage;
     private int batteryStatus;
     private Utilities util = new Utilities();
 
     public Controller() {
         this.bloodData = new ArrayList<>();
-        this.bloodSugarTrend = 0;
-        this.batteryStatus = 100;
-        setRules();
-    }
-
-    public void setRules() {
-        this.maxInjection = 10;
-        this.minInjection = 1;
-        this.maxCummulativeDose = 100;
+        this.bloodSugarTrend = Config.STARTING_TREND;
+        this.batteryStatus = Config.STARTING_BATTERY;
+        this.cumulativeDosage = Config.STARTING_CUMULATIVE_DOSE;
     }
 
     private void analyseBloodSugar() {
@@ -30,7 +22,7 @@ public class Controller {
             double recentReadings = (bloodData.get(lastIndex) + bloodData.get(lastIndex - 1) + bloodData.get(lastIndex - 2)) / 3;
             double pastReadings = (bloodData.get(lastIndex - 3) + bloodData.get(lastIndex - 4) + bloodData.get(lastIndex - 5)) / 3;
             this.bloodSugarTrend = recentReadings - pastReadings;
-            if (((recentReadings + pastReadings)/2) > (250-10)) {
+            if (((recentReadings + pastReadings)/2) > (Config.MAX_BLOOD_SUGAR-10)) {
                 this.bloodSugarTrend = 1;
             }
         }
@@ -44,7 +36,7 @@ public class Controller {
         java.lang.System.out.println(bloodData);
         analyseBloodSugar();
         java.lang.System.out.println("Controller received data");
-        if (bloodSugar <= 70) {
+        if (bloodSugar <= Config.MIN_BLOOD_SUGAR) {
             java.lang.System.out.println("Blood sugar critically low, Eat something! : " + bloodSugar + " mg/dl");
             return "LOW";
         }
@@ -54,8 +46,19 @@ public class Controller {
     private double calculateInjection() {
         if (bloodSugarTrend > 0) {
             double bloodSugar = bloodData.get(bloodData.size()-1);
-            if (bloodSugar >= 150) {
-                double dosage = util.round((bloodSugar - 100)/50, 2);
+            if (bloodSugar >= Config.INJECTION_THRESHOLD) {
+                double dosage = Utilities.round((bloodSugar - Config.TARGET_BLOOD_SUGAR)/Config.CORRECTION_FACTOR, 2);
+                if (dosage > Config.MAX_INJECTION) {
+                    dosage =  Config.MAX_INJECTION;
+                }
+                else if (dosage < Config.MIN_INJECTION) {
+                    dosage = 0;
+                }
+                if ((cumulativeDosage + dosage) > Config.MAX_CUMULATIVE_DOSE) {
+                    java.lang.System.out.println("Calculated dosage exceeds maximum cumulative dosage");
+                    dosage = (Config.MAX_CUMULATIVE_DOSE - cumulativeDosage);
+                }
+                cumulativeDosage += dosage;
                 java.lang.System.out.println("Controller calculated an insulin injection of " + dosage + " U-100");
                 return dosage;
             }

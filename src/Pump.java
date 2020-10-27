@@ -5,21 +5,15 @@ public class Pump {
     private boolean operationStatus;
 
     public Pump() {
-        this.insulinAvailable = 100.00;
-        this.needleEquipt = true;
-        this.operationStatus = true;
+        this.insulinAvailable = Config.STARTING_INSULIN_STORAGE;
+        this.needleEquipt = Config.NEEDLE_EQUIPPED;
     }
 
     public double getInsulinAvailable() {
         return insulinAvailable;
     }
 
-    public boolean isNeedleEquipt() {
-        return needleEquipt;
-    }
-
     public void setOperationStatus(boolean operationStatus) {
-        this.operationStatus = operationStatus;
     }
 
     public String receiveCommand(double insulin) {
