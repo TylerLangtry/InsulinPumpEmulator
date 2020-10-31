@@ -69,3 +69,6 @@ form {
       width: 100%;
     }
   }
+
+  p.alarm_box {border-style: groove;
+  border-color: black;}
