@@ -5,16 +5,25 @@
 // define('DB_PASSWORD', 'Master1234');
 // define('DB_NAME', 'main');
 
-/* Database credentials. Assuming you are running MySQL server with default setting (user 'root' with no password) */
+// /* Database credentials. Assuming you are running MySQL server with default setting (user 'root' with no password) */
 // define('DB_SERVER', 'localhost');
 // define('DB_USERNAME', 'root');
 // define('DB_PASSWORD', '');
-// define('DB_NAME', 'main');
+// define('DB_NAME', 'insulin_pump_final');
 
-define('DB_SERVER', 'databaseinsulinpump632.ca80da60sphk.us-east-2.rds.amazonaws.com');
-define('DB_USERNAME', 'master');
-define('DB_PASSWORD', 'Master1234');
-define('DB_NAME', 'main');
+
+/* Database credentials. Assuming you are running MySQL server with default setting (user 'root' with no password) */
+define('DB_SERVER', 'localhost');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', '');
+define('DB_NAME', 'main2');
+
+
+
+// define('DB_SERVER', 'databaseinsulinpump632.ca80da60sphk.us-east-2.rds.amazonaws.com');
+// define('DB_USERNAME', 'master');
+// define('DB_PASSWORD', 'Master1234');
+// define('DB_NAME', 'main');
 
 
 

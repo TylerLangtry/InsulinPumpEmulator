@@ -47,9 +47,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             </div>
         </div>
 
-        <!-- <div class="w3-container">
-            <p>In this example, the sidebar is hidden (style="display:none")</p>
-        </div> -->
 
 
         <label for="battery_progress">Battery level:</label>
