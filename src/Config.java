@@ -1,6 +1,8 @@
+import java.sql.Connection;
+
 public class Config {
-    public static int MEASUREMENT_INTERVAL = 1;
-    public static int INJECTION_INTERVAL = 6;
+    public static int MEASUREMENT_INTERVAL = 5;
+    public static int INJECTION_INTERVAL = MEASUREMENT_INTERVAL*6;
 
     public static double STARTING_SUGAR = 100;
     public static double STARTING_INSULIN = 0;
@@ -19,7 +21,5 @@ public class Config {
     public static double MIN_BLOOD_SUGAR = 70;
     public static double TARGET_BLOOD_SUGAR = 100;
 
-    public static double STARTING_INSULIN_STORAGE = 50;
-    public static boolean NEEDLE_EQUIPPED = true;
-
+    public static double STARTING_INSULIN_STORAGE = 5;
 }
