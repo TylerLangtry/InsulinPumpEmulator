@@ -8,6 +8,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
+// Include config file
+require_once "config.php";
+
 
 // Define variables and initialize with empty values
 $cooldown_time = "";
@@ -57,11 +60,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // if(empty($cooldown_time_err) && empty($max_inj_amt_err) && empty($min_inj_amt_err) empty($max_dose_err)){
     if(empty($cooldown_time_err) && empty($max_inj_amt_err) && empty($min_inj_amt_err) && empty($max_dose_amt_err)){
         // Prepare an update statement
-        $sql = "UPDATE `configuration` SET `cooldown_time` = ?, `max_inj_amnt` = ?, `min_inj_amnt` = ?, `max_cumm_dose` = ?, `users_user_id` = ?,  WHERE `users_users_id` = ?";
-        
+        $sql = "UPDATE `configuration` SET `cooldown_time` = ?, `max_inj_amnt` = ?, `min_inj_amnt` = ?, `max_cumm_dose` = ? WHERE `users_user_id` = ?";
+        // $sql = "UPDATE configuration SET cooldown_time = ?  WHERE users_user_id = ?";
+
+
+
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ssssi", $param_cooldown_time, $param_max_inj_amt, $param_min_inj_amt, $param_max_dose_amt , $param_id);
+            mysqli_stmt_bind_param($stmt, "dddsi", $param_cooldown_time, $param_max_inj_amt, $param_min_inj_amt, $param_max_dose_amt , $param_id);
             
             // Set parameters
             $param_password = password_hash($new_password, PASSWORD_DEFAULT);
@@ -69,7 +75,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_max_inj_amt = $max_inj_amt;
             $param_min_inj_amt = $min_inj_amt;
             $param_max_dose_amt = $max_dose_amt;
-            $param_id = $_SESSION["id"];
+            $param_id = $_SESSION["user_id"];
 
             
             
@@ -77,6 +83,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             if(mysqli_stmt_execute($stmt)){
                 // Password updated successfully. Destroy the session, and redirect to login page
                 mysqli_stmt_store_result($stmt);
+                echo "Correctly stored";
                 
                 header("location: configuration.php");
                 exit();
@@ -130,6 +137,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to the Insulin Pump Emulator</h1>
             </div>
         </div>
+
+        <br>
 
         <div>
             <label for="patient_name">Patient Name:</label>
