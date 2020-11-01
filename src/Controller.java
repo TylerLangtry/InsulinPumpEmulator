@@ -21,13 +21,14 @@ public class Controller {
             double recentReadings = (bloodData.get(lastIndex) + bloodData.get(lastIndex - 1) + bloodData.get(lastIndex - 2)) / 3;
             double pastReadings = (bloodData.get(lastIndex - 3) + bloodData.get(lastIndex - 4) + bloodData.get(lastIndex - 5)) / 3;
             this.bloodSugarTrend = recentReadings - pastReadings;
-            if (((recentReadings + pastReadings)/2) > (Config.MAX_BLOOD_SUGAR-10)) {
+            if (((recentReadings + pastReadings)/2) > (Config.MAX_BLOOD_SUGAR-Config.TREND_STRICTNESS)) {
                 this.bloodSugarTrend = 1;
             }
         }
         else {
             this.bloodSugarTrend = 0;
         }
+        java.lang.System.out.println("TREND: " + this.bloodSugarTrend);
     }
 
     public double receiveBloodData(double bloodSugar) {
@@ -65,9 +66,8 @@ public class Controller {
                 java.lang.System.out.println("Controller calculated an insulin injection of " + dosage + " U-100");
             }
         }
-        util.insertData(bloodData.get(bloodData.size() - 1), dosage);
-        util.closeConnection();
-        return new double[]{dosage,dosageErr};
+        double sugarLevel = bloodData.get(bloodData.size() - 1);
+        return new double[]{dosage,dosageErr,sugarLevel};
     }
 
     public double[] sendInsulinInjection() {

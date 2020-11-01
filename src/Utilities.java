@@ -68,14 +68,16 @@ public class Utilities {
     }
 
     // Method to get the configuration settings
-    public String[] getConfiguration() {
-        String[] result = new String[5];
+    private String[] getConfiguration() {
+        String[] result = new String[6];
         // Query the latest configuration file made and send it back in an array of strings
-        String query = "SELECT * FROM configuration ORDER BY config_id DESC LIMIT 1";
+        String query = "SELECT * FROM configuration ORDER BY configuration_id DESC LIMIT 1";
         sendQuery(query);
         try {
-            for (int i = 0; i < 5; i++) {
-                result[i] = resultSet.getString(i);
+            if(resultSet.next()) {
+                for (int i = 1; i < 7; i++) {
+                        result[i-1] = resultSet.getString(i);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,26 +85,34 @@ public class Utilities {
         return result;
     }
 
+    public void updateConfig() {
+        String[] config = getConfiguration();
+        Config.MEASUREMENT_INTERVAL = (int)Double.parseDouble(config[2]);
+        Config.MAX_INJECTION = Double.parseDouble(config[3]);
+        Config.MIN_INJECTION = Double.parseDouble(config[4]);
+        Config.MAX_CUMULATIVE_DOSE = Double.parseDouble(config[5]);
+    }
+
     // Method to insert to the data table
     public void insertData(double sugarLevel, double injectAmount) {
-        int data_id = getLatestID("Data", "data_ID");
+        int data_id = getLatestID("data", "data_ID");
         closeConnection();
-        String query = "INSERT INTO Data (data_ID,blood_sug_lvl,collection_date,collection_time,inject_amnt) VALUES ("
-                + data_id + "," + sugarLevel + ",now(),now()," + injectAmount + ")";
+        String query = "INSERT INTO data (data_ID,blood_sug_lvl,last_update,inj_amnt,users_user_id) VALUES ("
+                + data_id + "," + sugarLevel + ",now()," + injectAmount + ",1)";
         sendUpdate(query);
     }
 
     // Method to insert to the status table
     public void insertStatus(int charge, int reserve, String alert) {
         String query;
-        int status_id= getLatestID("Status", "status_ID");
+        int status_id= getLatestID("status", "status_ID");
         closeConnection();
         if (alert.equals("")) {
-            query = "INSERT INTO Status (status_id,battery_charge,reserves_amnt,status_time,status_date) VALUES ("
-                    + status_id + "," + charge + "," + reserve + ",now(),now())";
+            query = "INSERT INTO status (status_id,last_update,battery_charge,reserve_amnt,users_user_id) VALUES ("
+                    + status_id + ",now()," + charge + "," + reserve + ",1)";
         } else {
-            query = "INSERT INTO Status (status_id,battery_charge,reserves_amnt,alert,status_time,status_date) " +
-                    "VALUES (" + status_id + "," + charge + "," + reserve + ",'" + alert + "',now(),now())";
+            query = "INSERT INTO status (status_id,last_update,battery_charge,reserve_amnt,alert,users_user_id) " +
+                    "VALUES (" + status_id + ",now()," + charge + "," + reserve + ",'" + alert + "',1)";
         }
         sendUpdate(query);
     }

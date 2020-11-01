@@ -15,6 +15,7 @@ public class Blood {
     }
 
     public double getBloodSugar() {
+        java.lang.System.out.println("BLOOD INSULIN LEVEL: " + insulin);
         count++;
         if (count == Config.EATING_CYCLE) {
             this.bloodSugar = bloodSugar + Config.FOOD_SUGAR;
@@ -30,9 +31,11 @@ public class Blood {
         return util.round(bloodSugar + (random.nextInt(10)-5), 2);
     }
 
-    public void amendBloodSugar(double insulin) {
-        this.insulin = this.insulin + insulin;
-        this.reductionFactor = util.round(insulin/20, 2);
+    public void amendBloodSugar(double insulinInjection) {
+        java.lang.System.out.println("OLD INSULIN: " + this.insulin);
+        this.insulin += insulinInjection;
+        java.lang.System.out.println("NEW INSULIN: " + this.insulin);
+        this.reductionFactor = util.round(this.insulin/20, 2);
     }
 
     public void eat() {

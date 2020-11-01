@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Date;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
@@ -12,12 +13,19 @@ public class System {
         Utilities util = new Utilities();
         ReentrantLock lock = new ReentrantLock();
 
-        util.customUpdate("INSERT INTO Data (data_ID,blood_sug_lvl,collection_date,collection_time,inject_amnt) VALUES ("
-               + 0 + "," + Config.STARTING_SUGAR + ",now(),now()," + 0.00 + ")");
+        util.customUpdate("INSERT INTO data (data_ID,blood_sug_lvl,last_update,inj_amnt,users_user_id) VALUES ("
+                + 0 + "," + Config.STARTING_SUGAR + ",now()," + 0 + "," + 1 + ")");
         util.closeConnection();
-        util.customUpdate("INSERT INTO Status (status_id,battery_charge,reserves_amnt,status_time,status_date) VALUES ("
-                + 0 + "," + Config.STARTING_BATTERY + "," + 100 + ",now(),now())");
+        util.customUpdate("INSERT INTO status (status_id,last_update,battery_charge,reserve_amnt,users_user_id) VALUES ("
+                + 0 + ",now()," + Config.STARTING_BATTERY + "," + 100 + "," + 1 +")");
         util.closeConnection();
+        util.customUpdate("INSERT INTO configuration (configuration_id, last_change, cooldown_time, max_inj_amnt, min_inj_amnt, max_cumm_dose,users_user_id) VALUES (" +
+                "0,now(),5,5,0.1,20,1)");
+        util.closeConnection();
+        java.lang.System.out.println();
+
+        util.updateConfig();
+        java.lang.System.out.println("CONFIG UPDATED");
         java.lang.System.out.println();
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
@@ -54,6 +62,8 @@ public class System {
                 double[] pumpResult = pump.receiveCommand(controllerResult[0]);
                 if (pumpResult[0] == 0) {
                     pump.injectInsulin(blood);
+                    util.insertData(controllerResult[2], controllerResult[0]);
+                    util.closeConnection();
                 } else {
                     pump.fillReserve();
                 }
