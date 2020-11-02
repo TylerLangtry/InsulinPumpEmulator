@@ -133,19 +133,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
         // Check input errors before updating the database
-        if(empty($cooldown_time_err) && empty($max_inj_amt_err) && empty($min_inj_amt_err) && empty($max_dose_amt_err)){
+        if(empty($cooldown_time_err) && empty($max_inj_amt_err) && empty($min_inj_amt_err) && empty($max_dose_amt_err) && empty($patient_id_err)){
             // Prepare an update statement
             // $sql = "UPDATE `configuration` SET `cooldown_time` = ?, `max_inj_amnt` = ?, `min_inj_amnt` = ?, `max_cumm_dose` = ? WHERE `users_user_id` = ?";
             $sql = "UPDATE `configuration` SET `cooldown_time` = ?, `max_inj_amnt` = ?, `min_inj_amnt` = ?, `max_cumm_dose` = ? WHERE (`users_user_id` = ?)";
             
             // $sql = "UPDATE configuration SET cooldown_time = ?  WHERE users_user_id = ?";
 
-
+            printf("Hello world");
 
             if($stmt = mysqli_prepare($link, $sql)){
                 // Bind variables to the prepared statement as parameters
                 mysqli_stmt_bind_param($stmt, "dddsi", $param_cooldown_time, $param_max_inj_amt, $param_min_inj_amt, $param_max_dose_amt , $param_id);
-                
+                printf("Hello world 2");
+
                 // Set parameters
                 $param_cooldown_time = $cooldown_time;
                 $param_max_inj_amt = $max_inj_amt;
@@ -158,6 +159,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 
                 // Attempt to execute the prepared statement
                 if(mysqli_stmt_execute($stmt)){
+                    printf("Hello world 3");
+
                     // Password updated successfully. Destroy the session, and redirect to login page
                     mysqli_stmt_store_result($stmt);
                     echo "Correctly stored";
@@ -228,11 +231,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
 
             <input type="submit" name="btn_load" value="Load">
-        </form>
+        <!-- </form> -->
 
 
         <h2> Configuration </h2>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" >
+        <!-- <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" > -->
             <div class="form-group <?php echo (!empty($cooldown_time_err)) ? 'has-error' : ''; ?>">
 
                 <label for="cooldown_time">Cooldown time:</label>
