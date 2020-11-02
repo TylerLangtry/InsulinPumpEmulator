@@ -1,38 +1,35 @@
 public class Pump {
     private double insulinAvailable;
     private double insulin;
-    private boolean needleEquipt;
-    private boolean operationStatus;
 
     public Pump() {
         this.insulinAvailable = Config.STARTING_INSULIN_STORAGE;
-        this.needleEquipt = Config.NEEDLE_EQUIPPED;
     }
 
-    public double getInsulinAvailable() {
-        return insulinAvailable;
-    }
-
-    public void setOperationStatus(boolean operationStatus) {
-    }
-
-    public String receiveCommand(double insulin) {
+    public double[] receiveCommand(double insulin) {
         java.lang.System.out.println("Pump received a command from Controller");
-        if (insulin < insulinAvailable) {
+        if ((insulinAvailable - insulin) >= 0) {
             this.insulin = insulin;
-            return "ACK";
+            return new double[]{0, insulinAvailable-insulin};
         } else {
-            return "RJC";
+            return new double[]{1, insulinAvailable};
         }
     }
 
     public void injectInsulin(Blood blood) {
         if (insulin > 0) {
+            insulinAvailable -= insulin;
             java.lang.System.out.println("Pump injected " + insulin + "ml of insulin");
             blood.amendBloodSugar(insulin);
         }
     }
 
+    public void fillReserve() {
+        insulinAvailable = Config.STARTING_INSULIN_STORAGE;
+    }
 
+    public double getInsulinAvailable() {
+        return insulinAvailable;
+    }
 
 }
