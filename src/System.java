@@ -13,6 +13,7 @@ public class System {
         Utilities util = new Utilities();
         ReentrantLock lock = new ReentrantLock();
 
+        // Database setup (only run if database is empty)
         util.customUpdate("INSERT INTO data (data_ID,blood_sug_lvl,last_update,inj_amnt,users_user_id) VALUES ("
                 + 0 + "," + Config.STARTING_SUGAR + ",now()," + 0 + "," + 1 + ")");
         util.closeConnection();
@@ -24,6 +25,7 @@ public class System {
         util.closeConnection();
         java.lang.System.out.println();
 
+        // Update the config with DB values
         util.updateConfig();
         java.lang.System.out.println("CONFIG UPDATED");
         java.lang.System.out.println();

@@ -6,6 +6,7 @@ public class Pump {
         this.insulinAvailable = Config.STARTING_INSULIN_STORAGE;
     }
 
+    // Receive a dosage and check if the reservoir has enough insulin
     public double[] receiveCommand(double insulin) {
         java.lang.System.out.println("Pump received a command from Controller");
         if ((insulinAvailable - insulin) >= 0) {
@@ -16,6 +17,7 @@ public class Pump {
         }
     }
 
+    // Inject the insulin dosage
     public void injectInsulin(Blood blood) {
         if (insulin > 0) {
             insulinAvailable -= insulin;
@@ -24,6 +26,7 @@ public class Pump {
         }
     }
 
+    // Fill the reservoir
     public void fillReserve() {
         insulinAvailable = Config.STARTING_INSULIN_STORAGE;
     }

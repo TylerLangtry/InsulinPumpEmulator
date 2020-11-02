@@ -56,7 +56,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $patient_id = trim($_POST["patient_id"]);
         }
 
-        $sql_load = "SELECT `battery_charge`, `reserve_amnt`, `alert`  FROM `status` WHERE `users_user_id` = ? " ;
+        $sql_load = "SELECT `battery_charge`, `reserve_amnt`, `alert`  FROM `status` WHERE `users_user_id` = ? ORDER BY `last_update` DESC limit 1" ;
         
         if(empty($patient_id_err)){
             if($stmt = mysqli_prepare($link, $sql_load)){
@@ -101,7 +101,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 mysqli_stmt_close($stmt);
             }
 
-            $sql_chart = "SELECT `blood_sug_lvl`,`inj_amnt`, `last_update` FROM data WHERE `users_user_id` = ? ORDER BY `last_update` DESC limit 3";
+            $sql_chart = "SELECT `blood_sug_lvl`,`inj_amnt`, `last_update` FROM data WHERE `users_user_id` = ? ORDER BY `last_update` DESC limit 10";
 
             if($stmt = mysqli_prepare($link, $sql_chart)){
                 // Bind variables to the prepared statement as parameters
@@ -234,7 +234,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         var data = new google.visualization.DataTable(<?php echo json_encode($dataBlood); ?>);    
  
         $i = 0;
-        $numofloops = 3;
+        $numofloops = 10;
 
         var options = {
             title: 'Blood sugar Level',
@@ -256,7 +256,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         var data = new google.visualization.DataTable(<?php echo json_encode($dataInjection); ?>);    
  
         $i = 0;
-        $numofloops = 3;
+        $numofloops = 10;
 
         var options = {
             title: 'Insulin Injection Amount',
@@ -317,10 +317,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
         <label for="battery_progress">Battery level:</label>
-        <progress id="battery_progress" value= <?php echo $battery_charge; ?>  max="100"> </progress>
+        <progress id="battery_progress" value=<?php echo $battery_charge; ?>  max="100"> </progress>
         <br>
         <label for="insulin_progress">Insulin Reserve:</label>
-        <progress id="insulin_progress" value=<?php echo $reserve_amnt; ?>  max="100"> max="100"> </progress>
+        <progress id="insulin_progress" value=<?php echo $reserve_amnt; ?>  max="100"> </progress>
 
         <br>
 

@@ -14,6 +14,7 @@ public class Blood {
 
     }
 
+    // Calculate blood sugar based on insulin in system/eating/bit of randomness
     public double getBloodSugar() {
         java.lang.System.out.println("BLOOD INSULIN LEVEL: " + insulin);
         count++;
@@ -31,6 +32,7 @@ public class Blood {
         return util.round(bloodSugar + (random.nextInt(10)-5), 2);
     }
 
+    // Change the amount of insulin in the system
     public void amendBloodSugar(double insulinInjection) {
         java.lang.System.out.println("OLD INSULIN: " + this.insulin);
         this.insulin += insulinInjection;

@@ -9,6 +9,7 @@ public class Utilities {
     private Statement statement = null;
     ResultSet resultSet = null;
 
+    // Rounding function
     public double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
         BigDecimal bd = BigDecimal.valueOf(value);
@@ -32,6 +33,7 @@ public class Utilities {
        }
     }
 
+    // Close DB connection
     public void closeConnection() {
         try { resultSet.close(); } catch (Exception e) { /* ignored */ }
         try { statement.close(); } catch (Exception e) { /* ignored */ }
@@ -85,6 +87,7 @@ public class Utilities {
         return result;
     }
 
+    // Update the config with DB values
     public void updateConfig() {
         String[] config = getConfiguration();
         Config.MEASUREMENT_INTERVAL = (int)Double.parseDouble(config[2]);
@@ -135,12 +138,13 @@ public class Utilities {
         sendQuery(query);
     }
 
+    // Custom Update for deletion or changing
     public void customUpdate(String query) {
         sendUpdate(query);
     }
 
+    // Shutting down executor service
     public void shutDownExecutors(ScheduledExecutorService executorService) {
-        //Code for shutting down executor service
         try {
             java.lang.System.out.println("attempt to shutdown executor");
             executorService.shutdown();

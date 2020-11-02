@@ -43,7 +43,7 @@ $dataInjection = array (
 $dataAlerts = array ();
 
 
-$sql_load = "SELECT `battery_charge`, `reserve_amnt`, `alert`  FROM `status` WHERE `users_user_id` = ? " ;
+$sql_load = "SELECT `battery_charge`, `reserve_amnt`, `alert`  FROM `status` WHERE `users_user_id` = ? ORDER BY `last_update` DESC limit 1" ;
 
 if($stmt = mysqli_prepare($link, $sql_load)){
     // Bind variables to the prepared statement as parameters
@@ -65,7 +65,6 @@ if($stmt = mysqli_prepare($link, $sql_load)){
                 // Save MYSQL values to php local values
                 $battery_charge = $param_battery_charge ;
                 $reserve_amnt = $param_reserve_amnt;
-                
                 // Check If alert is not null
                 if( $param_alert != NULL){
                     $alert = $param_alert;
@@ -85,7 +84,7 @@ if($stmt = mysqli_prepare($link, $sql_load)){
     mysqli_stmt_close($stmt);
 }
 
-$sql_chart = "SELECT `blood_sug_lvl`,`inj_amnt`, `last_update` FROM data WHERE `users_user_id` = ? ORDER BY `last_update` DESC limit 3";
+$sql_chart = "SELECT `blood_sug_lvl`,`inj_amnt`, `last_update` FROM data WHERE `users_user_id` = ? ORDER BY `last_update` DESC limit 10";
 
 if($stmt = mysqli_prepare($link, $sql_chart)){
     // Bind variables to the prepared statement as parameters
@@ -205,7 +204,7 @@ if($stmt = mysqli_prepare($link, $sql_alerts)){
         var data = new google.visualization.DataTable(<?php echo json_encode($dataBlood); ?>);    
  
         $i = 0;
-        $numofloops = 3;
+        $numofloops = 10;
 
         var options = {
             title: 'Blood sugar Level',
@@ -227,7 +226,7 @@ if($stmt = mysqli_prepare($link, $sql_alerts)){
         var data = new google.visualization.DataTable(<?php echo json_encode($dataInjection); ?>);    
  
         $i = 0;
-        $numofloops = 3;
+        $numofloops = 10;
 
         var options = {
             title: 'Insulin Injection Amount',
@@ -255,8 +254,7 @@ if($stmt = mysqli_prepare($link, $sql_alerts)){
     <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
         <button class="w3-bar-item w3-button w3-large"
         onclick="sidebar_close()">Close &times;</button>
-        <a href="dashboard.php" class="w3-bar-item w3-button">Dashboard</a>
-        <a href="configuration.php" class="w3-bar-item w3-button">Configuration</a>
+        <a href="patient_dashboard.php" class="w3-bar-item w3-button">Dashboard</a>
         <a href="reset-password.php" class="w3-bar-item w3-button">Reset Your Password</a>
         <a href="logout.php" class="w3-bar-item w3-button">Sign Out of Your Account</a>
     </div>
@@ -278,7 +276,7 @@ if($stmt = mysqli_prepare($link, $sql_alerts)){
         <progress id="battery_progress" value= <?php echo $battery_charge; ?>  max="100"> </progress>
         <br>
         <label for="insulin_progress">Insulin Reserve:</label>
-        <progress id="insulin_progress" value=<?php echo $reserve_amnt; ?>  max="100"> max="100"> </progress>
+        <progress id="insulin_progress" value=<?php echo $reserve_amnt; ?>  max="100"> </progress>
 
         <br>
 

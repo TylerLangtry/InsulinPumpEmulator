@@ -6,6 +6,7 @@ public class Sensor {
         this.bloodData = 0;
     }
 
+    // Get the blood sugar from blood
     public void measureBloodData(Blood blood) {
         this.bloodData = blood.getBloodSugar();
         java.lang.System.out.println("Sensor measured blood sugar level of " + bloodData + " mg/dl");

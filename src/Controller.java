@@ -15,6 +15,7 @@ public class Controller {
         this.cumulativeDosage = Config.STARTING_CUMULATIVE_DOSE;
     }
 
+    // Calculate the blood sugar trend
     private void analyseBloodSugar() {
         int lastIndex = bloodData.size() - 1;
         if (lastIndex > 5) {
@@ -31,6 +32,7 @@ public class Controller {
         java.lang.System.out.println("TREND: " + this.bloodSugarTrend);
     }
 
+    // Receive, check and send to DB the blood sugar
     public double receiveBloodData(double bloodSugar) {
         bloodData.add(bloodSugar);
         util.insertData(bloodSugar, 0.00);
@@ -44,11 +46,14 @@ public class Controller {
         return 0;
     }
 
+    // Calculate insulin dosage if required
     private double[] calculateInjection() {
         double dosage = 0;
         double dosageErr = 0;
+        // Only if blood sugar is trending up
         if (bloodSugarTrend > 0) {
             double bloodSugar = bloodData.get(bloodData.size()-1);
+            // Only if blood sugar is higher than threshold
             if (bloodSugar >= Config.INJECTION_THRESHOLD) {
                 dosage = util.round((bloodSugar - Config.TARGET_BLOOD_SUGAR)/Config.CORRECTION_FACTOR, 2);
                 if (dosage > Config.MAX_INJECTION) {
@@ -57,6 +62,7 @@ public class Controller {
                 else if (dosage < Config.MIN_INJECTION) {
                     dosage = 0;
                 }
+                // Only if dosage will not push patient over their cummulative daily dossage
                 if ((cumulativeDosage + dosage) > Config.MAX_CUMULATIVE_DOSE) {
                     java.lang.System.out.println("Calculated dosage exceeds maximum cumulative dosage");
                     dosageErr = 1;
@@ -75,6 +81,7 @@ public class Controller {
         return calculateInjection();
     }
 
+    // Send to DB device info and alerts
     public void sendStatusData(double error, double insulinReserve, double dosageErr) {
         batteryStatus -= 10;
         String errorMsg = "";
