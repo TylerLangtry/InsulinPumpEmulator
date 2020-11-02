@@ -191,7 +191,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="line_chart.js"></script>
 
     <style type="text/css">
         body{ font: 14px sans-serif; text-align: center; }
@@ -222,7 +221,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <br>
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" >
-            <div>
+            <div style="display: inline-block">
             
             <label for="patient_id">Patient Select:</label>
                 <input type="text" id="patient_id" name="patient_id" value = <?php echo $patient_id; ?>>

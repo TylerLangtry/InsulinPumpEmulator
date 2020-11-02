@@ -300,9 +300,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to the Insulin Pump Emulator</h1>
             </div>
         </div>
+        
+        <br>
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" >
-            <div>
+            <div style="display: inline-block">
             
             <label for="patient_id">Patient Select:</label>
                 <input type="text" id="patient_id" name="patient_id" value = <?php echo $patient_id; ?>>
@@ -310,7 +312,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             </div>
 
-            <input type="submit" name="btn_load" value="Load">
+            <input type="submit" name="btn_load" value="Load" >
         </form>
 
 
