@@ -16,7 +16,7 @@
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_NAME', 'main2');
+define('DB_NAME', 'insulinpumpdb');
 
 
 
@@ -24,6 +24,7 @@ define('DB_NAME', 'main2');
 // define('DB_USERNAME', 'master');
 // define('DB_PASSWORD', 'Master1234');
 // define('DB_NAME', 'main');
+
 
 
 

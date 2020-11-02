@@ -17,7 +17,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $sql = "SELECT user_id FROM users WHERE username = ?";
 
         
-        
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "s", $param_username);
@@ -27,8 +26,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
-                /* store result unique rey*/
+                /* store result */
                 mysqli_stmt_store_result($stmt);
+                
                 
                 if(mysqli_stmt_num_rows($stmt) == 1){
                     $username_err = "This username is already taken.";
