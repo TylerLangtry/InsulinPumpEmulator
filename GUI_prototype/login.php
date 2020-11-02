@@ -69,7 +69,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["admin_status"] = $admin_status;                      
                             
                             // Redirect user to welcome page
-                            header("location: dashboard.php");
+                            if($_SESSION["admin_status"] == 1){
+                                header("location: dashboard.php");
+                            } else {
+                                header("location: patient_dashboard.php");
+                            }
                         } else{
                             // Display an error message if password is not valid
                             $password_err = "The password you entered was not valid.";

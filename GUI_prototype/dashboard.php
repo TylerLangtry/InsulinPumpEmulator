@@ -49,7 +49,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if (isset($_POST['btn_load'])) {
 
-        // Check if password is empty
+        // Check if patient id is empty
         if(empty(trim($_POST["patient_id"]))){
             $patient_id_err = "Please enter your user id.";
         } else{
